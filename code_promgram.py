@@ -6,7 +6,7 @@ class CAR:
     name = "xiaomi su7"
     max_speed = 80
 
-    def __init__(self, color: str):  # 特殊方法，仅用于初始化，传入参数
+    def __init__(self, color: str):  # 特殊方法，构造方法，就是用来初始化的方法，仅用于初始化，传入参数
         self.color = color
 
     def __str__(self):  # 定义对象的字符串表示
