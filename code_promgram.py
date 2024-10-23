@@ -1,10 +1,10 @@
 
-
+# 该文档讲解 python中几种方法的区别和应用指南
+# 该文档的 逻辑 通用于大部分面向对象的语言。
 
 class CAR:
     name = "xiaomi su7"
     max_speed = 80
-    battery = 80
 
     def __init__(self, color: str):  # 特殊方法，仅用于初始化，传入参数
         self.color = color
