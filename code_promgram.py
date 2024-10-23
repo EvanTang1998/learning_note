@@ -35,9 +35,11 @@ wangge_car = CAR('white')
 zhangsan_car.run(100)
 wangge_car.run(200)
 
-CAR.reset_speed('高速路')
+CAR.max_speed = 120    # 可以直接修改类属性
+CAR.reset_speed('高速路')   # 如果情况复杂，则可以通过类方法修改类属性
+
 print(zhangsan_car.max_speed)
 print(wangge_car.max_speed)
-p = CAR.plus_speed(1, 2)
-print(p)
-print(type(zhangsan_car))
+
+bmw = CAR.plus_speed(60, 20)
+print(bmw)
