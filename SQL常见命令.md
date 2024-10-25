@@ -1,7 +1,7 @@
-**查询**  select * from students where 1=1 and id<10 or age>20 join score on score.stu_id=students.id group by class order by name;
-**插入数据**  insert into table_name(列名) values(值)  
-**修改数据**  update mytable set a=100 where name='';
-**删除表数据**  delete from mytable where name='';  重置表  truncate table mytable;  删除表  drop table table_name;  
+**查询**  select * from students where 1=1 and id<10 or age>20 join score on score.stu_id=students.id group by class order by name;  
+**插入数据**  insert into table_name(列名) values(值)   
+**修改数据**  update mytable set a=100 where name='';  
+**删除表数据**  delete from mytable where name='';  重置表  truncate table mytable;  删除表  drop table table_name;    
 
 SHOW databases; 显示所有库  
 USE the_database; 使用某个库  
