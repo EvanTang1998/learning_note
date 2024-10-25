@@ -1,3 +1,8 @@
+**查询**  select * from students where 1=1 and id<10 or age>20 join score on score.stu_id=students.id group by class order by name;
+**插入数据**  insert into table_name(列名) values(值)  
+**修改数据**  update mytable set a=100 where name='';
+**删除表数据**  delete from mytable where name='';  重置表  truncate table mytable;  删除表  drop table table_name;  
+
 SHOW databases; 显示所有库  
 USE the_database; 使用某个库  
 CREATE DATABASE database_name CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; 创建库  
@@ -20,30 +25,13 @@ SHOW CREATE TABLE your_table_name;
 字段信息
 DESCRIBE your_table_name;
 
-增加字段  
+**增加字段**  
 ALTER TABLE example_table
 ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
-**修改 自动更新时间 字段**  
+**修改字段（自动更新时间）**  
 ALTER TABLE your_table_name
 MODIFY COLUMN update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
-**删除表数据**  
-delete from mytable where name='';
-
-重置表  
-truncate table mytable;
-
-删除表  
-drop table table_name;
-
-**查询**  
-select * from students where 1=1 and id<10 or age>20 join score on score.stu_id=students.id group by class order by name;
-
-**插入数据**  
-insert into table_name(列名) values(值)  
-**修改数据**  
-update mytable set a=100 where name='';
 
 
 ## ON
