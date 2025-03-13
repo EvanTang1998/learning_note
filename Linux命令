@@ -1,0 +1,137 @@
+linux 操作
+
+centos 查看linux版本lsb_release -a
+
+开下爬取的数据权限，在/gluster/tts_data/ja_game_allspeaker目录下面运行下：chmod -R 777 JG0058*
+nohup ./your_script.sh > output.log &
+nohup python -u  your_script.py > output.log 2>&1 &
+-u可以不缓冲
+
+
+彻底关闭某个程序
+pkill -f 'chromium-browser'
+
+显示文件夹大小
+1. du (disk usage)   -h可读显示（KB、MB、GB）。 -s仅显示总计  -a显示目录下所有文件的大小，而不仅是目录的总大小。
+2. df 用来查看系统级别的磁盘信息
+3. ls -lh : -l表示详细信息 -h表示人类可读性
+
+
+账户
+@jp01-simeji-qa-service00.jp01.baidu.com
+cat /etc/passwd看下有没有这个账户
+
+进程端口
+lsof
+根据路径 筛选进程 lsof | grep '/home/work/tangshen/project'
+
+python: plutil.pids()
+ps aux 查看所有进程
+ps aux | grep <14085> 
+ps -p <pid>  根据pid查看某个进程
+reset重新初始化终端
+僵尸进程 ps -elf | grep Z
+查看某个进程的状态  ps -eo pid,state | grep 12003
+ pstree -p | grep
+
+通过pid找到运行的脚本的路径
+lsof -p 14635 | grep cwd
+查看某个进程的工作目录：ls -l /proc/32515/cwd
+
+ps aux | grep uvicorn
+
+端口被占用 查看端口：sudo lsof -i :8090
+lsof -i : <端口号>  显示这个端口的信息 包括文件路径
+ss -tlupn  显示端口占用情况
+netstat -tnlp  显示端口占用情况
+
+netstat -anp  此命令将显示当前所有正在使用的端口，以及应用程序名称和PID
+查看应用程序PID为23273的文件路径：ps -p 32515 -o cmd
+
+sh app.sh start 12001 启动一个端口
+curl http://jp01-simeji-mars01.jp/getHistoryCase?amis_user=guojianbin01
+curl http://jp01-simeji-mars01.jp01.baidu.com:12003/model/input/getHistoryCase?amis_user=guojianbin01
+Could not resolve host: jp01-simeji-mars01.jp
+ps aux | 	grep uvicorn
+a = 显示所有用户的进程
+u = 显示进程的用户/所有者
+x = 还显示未连接到终端的进程
+￼
+
+
+开启一个环境
+ 固定的环境吧，你可以nohup go run main.go & 命令在本地后台执行下
+
+
+conda命令
+安装conda
+wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+sh Anaconda3-2022.05-Linux-x86_64.sh
+source ~/.bashrc
+
+
+conda -h 帮助
+conda info -e
+conda activate 环境名称(base)
+
+创建环境 conda create --name myenv python=3.8
+source activate ai-case
+
+conda
+exit退出shell, 遇到疑难杂症可以试试, 会按照默认设置找环境变量 （有次环境变量推不掉，就退了shell再进来就好了）
+
+
+如何返回数据？？？
+
+
+服务器查看进程ps aux
+
+
+Tar
+比较常用的就是 czvf xzvf
+-czvf 即 打包、gzip压缩、显示信息、指定到文件
+-c 创建存档 -z创建时使用gzip压缩，生成tar.gz -j使用bzip2压缩，生成tar.bz2
+-x 解包 extract
+-f 指定文件名
+-t
+-v 显示详细信息
+
+解压tar包至指定路径
+tar  xf package.tar.gz -c /home/
+Xvf 会把过程显示出来
+Tf 列出tar.gz中的文件
+-c 表示 指定输出文件夹
+
+
+
+
+
+lsof 列出所有打开的文件 -i网络
+
+
+> 覆盖冲重定向， 将命令的输出重定向到一个文件，如果文件已经存在，它会被覆盖。
+>> 追加重定向， 将命令的输出追加到一个文件的末尾，如果文件不存在，会创建一个新文件。
+nohup 后台运行
+& 彻底后台运行
+2>&1：将标准错误（stderr）重定向到标准输出（stdout），即 output.log 文件。
+
+
+linux
+if  then
+else 
+fi
+
+case  值 in 
+	模式1）
+		command 1
+		;;   表示break
+	模式2）
+		command 2
+		;;
+esac
+
+
+for while 条件
+do
+	echo "hello"
+done
