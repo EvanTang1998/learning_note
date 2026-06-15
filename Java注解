@@ -1,0 +1,80 @@
+Java 注解的几种
+
+@Around 全能王,相当于可以从头到尾控制方法执行前后的每一处细节,相当于其他几种的并集
+
+@Before 方法执行前执行
+@After 方法执行后执行, 无论是否异常, 相当于finally 中执行
+@AfterReturning 成功返回时执行,通常在 try return 后执行
+@AfterThrowing 异常抛出时执行,通常在 catch后执行
+
+
+public Object myAroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+    
+    // 这里是 @Around 的前半段（可以做 Before 的事）
+    System.out.println("【Around 前置】");
+
+    Object result = null;
+    try {
+        
+        // 👈 关键点：当你调用 joinPoint.proceed() 时，实际上是触发了【第二层】的拦截器链
+        result = 内底层的核心拦截网(joinPoint); 
+        
+        // 这里是 @Around 的后半段（可以做 AfterReturning 的事）
+        System.out.println("【Around 后置处理】返回值：" + result);
+        return result;
+
+    } catch (Throwable e) {
+        // 这里是 @Around 的异常处理（可以做 AfterThrowing 的事）
+        System.out.println("【Around 捕获异常】");
+        throw e;
+    } finally {
+        // 这里是 @Around 的收尾（可以做 After 的事）
+        System.out.println("【Around 最终收尾】");
+    }
+}
+
+// 这是 Spring AOP 底层为你生成的代理方法，它包裹了你的业务代码
+public Object amIIntercepted() {
+    
+    // =========================================================
+    // 1. @Before (前置通知)
+    // 位置：在目标方法执行之前
+    // 应用：此时业务还没开始，适合做【权限校验】、【入参检查】
+    // =========================================================
+    executeBeforeAdvice(); 
+
+    Object result = null;
+    try {
+        
+        result = targetMethod.proceed(); // 👈 真正执行你的业务方法
+        
+        
+        // =========================================================
+        // 3. @AfterReturning (返回通知)
+        // 位置：在方法成功执行完、拿到 result 之后
+        // 应用：此时业务百分百成功了，适合做【记录成功日志】、【发成功通知】
+        // =========================================================
+        executeAfterReturningAdvice(result); 
+        
+        return result;
+
+    } catch (Throwable e) {
+        
+        // =========================================================
+        // 4. @AfterThrowing (异常通知)
+        // 位置：只有在 catch 块捕获到异常时才触发
+        // 应用：此时业务崩了，适合做【异常监控报警（发钉钉/邮件）】
+        // =========================================================
+        executeAfterThrowingAdvice(e);
+        throw e;
+
+    } finally {
+        
+        // =========================================================
+        // 5. @After (后置/最终通知)
+        // 位置：在 finally 块中，无论成功还是失败，天塌下来都执行
+        // 应用：此时方法彻底结束，适合做【资源释放】、【清理 ThreadLocal】
+        // =========================================================
+        executeAfterAdvice();
+    }
+}
